@@ -68,30 +68,30 @@ const WallpaperGallery = () => {
     },
     {
       id: "6",
-      title: "Purple Dreams",
-      category: "Abstract",
-      image: "/lovable-uploads/5663820f-6c97-4492-9210-9eaa1a8dc415.png",
+      title: "Ocean Waves",
+      category: "Nature",
+      image: "https://images.unsplash.com/photo-1500375592092-40eb2168fd21",
       downloads: 1234,
       likes: 89,
-      gradient: "from-purple-600 to-pink-600"
+      gradient: "from-blue-500 to-cyan-500"
     },
     {
       id: "7",
-      title: "Cosmic Flow",
-      category: "Abstract",
-      image: "/lovable-uploads/22d31f51-c174-40a7-bd95-00e4ad00eaf3.png",
+      title: "Forest Light",
+      category: "Nature",
+      image: "https://images.unsplash.com/photo-1523712999610-f77fbcfc3843",
       downloads: 2341,
       likes: 156,
-      gradient: "from-blue-600 to-purple-600"
+      gradient: "from-green-600 to-yellow-500"
     },
     {
       id: "8",
-      title: "Ocean Vibes",
-      category: "Gradient",
-      image: "/lovable-uploads/af412c03-21e4-4856-82ff-d1a975dc84a9.png",
+      title: "Orange Bloom",
+      category: "Abstract",
+      image: "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07",
       downloads: 987,
       likes: 67,
-      gradient: "from-teal-600 to-blue-600"
+      gradient: "from-orange-500 to-red-500"
     },
     {
       id: "9",
