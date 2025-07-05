@@ -1,19 +1,14 @@
 
 import React, { useEffect } from "react";
 import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
-import HumanoidSection from "@/components/HumanoidSection";
-import SpecsSection from "@/components/SpecsSection";
-import DetailsSection from "@/components/DetailsSection";
-import ImageShowcaseSection from "@/components/ImageShowcaseSection";
+import WallpaperHero from "@/components/WallpaperHero";
+import WallpaperGallery from "@/components/WallpaperGallery";
 import Features from "@/components/Features";
 import Testimonials from "@/components/Testimonials";
-import Newsletter from "@/components/Newsletter";
-import MadeByHumans from "@/components/MadeByHumans";
 import Footer from "@/components/Footer";
 
 const Index = () => {
-  // Initialize intersection observer to detect when elements enter viewport
+  // Initialize intersection observer for scroll animations
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -35,8 +30,8 @@ const Index = () => {
     };
   }, []);
 
+  // Smooth scrolling for anchor links
   useEffect(() => {
-    // This helps ensure smooth scrolling for the anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -47,8 +42,7 @@ const Index = () => {
         const targetElement = document.getElementById(targetId);
         if (!targetElement) return;
         
-        // Increased offset to account for mobile nav
-        const offset = window.innerWidth < 768 ? 100 : 80;
+        const offset = 80;
         
         window.scrollTo({
           top: targetElement.offsetTop - offset,
@@ -59,18 +53,13 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-black">
       <Navbar />
-      <main className="space-y-4 sm:space-y-8"> {/* Reduced space on mobile */}
-        <Hero />
-        <HumanoidSection />
-        <SpecsSection />
-        <DetailsSection />
-        <ImageShowcaseSection />
+      <main>
+        <WallpaperHero />
+        <WallpaperGallery />
         <Features />
         <Testimonials />
-        <Newsletter />
-        <MadeByHumans />
       </main>
       <Footer />
     </div>

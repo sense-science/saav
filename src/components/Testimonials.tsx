@@ -1,80 +1,150 @@
 
-import React, { useRef } from "react";
-
-interface TestimonialProps {
-  content: string;
-  author: string;
-  role: string;
-  gradient: string;
-  backgroundImage?: string;
-}
-
-const testimonials: TestimonialProps[] = [{
-  content: "Atlas transformed our production line, handling repetitive tasks while our team focuses on innovation. 30% increase in output within three months.",
-  author: "Sarah Chen",
-  role: "VP of Operations, Axion Manufacturing",
-  gradient: "from-blue-700 via-indigo-800 to-purple-900",
-  backgroundImage: "/background-section1.png"
-}, {
-  content: "Implementing Atlas in our fulfillment centers reduced workplace injuries by 40% while improving order accuracy. The learning capabilities are remarkable.",
-  author: "Michael Rodriguez",
-  role: "Director of Logistics, GlobalShip",
-  gradient: "from-indigo-900 via-purple-800 to-orange-500",
-  backgroundImage: "/background-section2.png"
-}, {
-  content: "Atlas adapted to our lab protocols faster than any system we've used. It's like having another researcher who never gets tired and maintains perfect precision.",
-  author: "Dr. Amara Patel",
-  role: "Lead Scientist, BioAdvance Research",
-  gradient: "from-purple-800 via-pink-700 to-red-500",
-  backgroundImage: "/background-section3.png"
-}, {
-  content: "As a mid-size business, we never thought advanced robotics would be accessible to us. Atlas changed that equation entirely with its versatility and ease of deployment.",
-  author: "Jason Lee",
-  role: "CEO, Innovative Solutions Inc.",
-  gradient: "from-orange-600 via-red-500 to-purple-600",
-  backgroundImage: "/background-section1.png"
-}];
-
-const TestimonialCard = ({
-  content,
-  author,
-  role,
-  backgroundImage = "/background-section1.png"
-}: TestimonialProps) => {
-  return <div className="bg-cover bg-center rounded-lg p-8 h-full flex flex-col justify-between text-white transform transition-transform duration-300 hover:-translate-y-2 relative overflow-hidden" style={{
-    backgroundImage: `url('${backgroundImage}')`
-  }}>
-      <div className="absolute top-0 right-0 w-24 h-24 bg-white z-10"></div>
-      
-      <div className="relative z-0">
-        <p className="text-xl mb-8 font-medium leading-relaxed pr-20">{`"${content}"`}</p>
-        <div>
-          <h4 className="font-semibold text-xl">{author}</h4>
-          <p className="text-white/80">{role}</p>
-        </div>
-      </div>
-    </div>;
-};
+import React, { useState, useEffect } from "react";
+import { Star, Quote } from "lucide-react";
 
 const Testimonials = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
-  return <section className="py-12 bg-white relative" id="testimonials" ref={sectionRef}> {/* Reduced from py-20 */}
-      <div className="section-container opacity-0 animate-on-scroll">
-        <div className="flex items-center gap-4 mb-6">
-          <div className="pulse-chip">
-            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-pulse-500 text-white mr-2">04</span>
-            <span>Testimonials</span>
+  const testimonials = [
+    {
+      name: "Alex Chen",
+      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
+      rating: 5,
+      text: "SAAV has completely transformed my phone's look. The wallpapers are absolutely stunning and the quality is unmatched!",
+      phone: "iPhone 14 Pro"
+    },
+    {
+      name: "Sarah Johnson",
+      avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face",
+      rating: 5,
+      text: "I love how easy it is to download wallpapers. The dark theme makes browsing so pleasant, especially at night.",
+      phone: "Samsung Galaxy S23"
+    },
+    {
+      name: "Marcus Rodriguez",
+      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
+      rating: 5,
+      text: "The gradient collections are my favorite! Every wallpaper feels like a piece of art. Highly recommended!",
+      phone: "Google Pixel 7"
+    },
+    {
+      name: "Emma Wilson",
+      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
+      rating: 5,
+      text: "Finally found a wallpaper site that understands aesthetics. The minimalist designs are perfect for my style.",
+      phone: "OnePlus 11"
+    }
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <section className="py-20 bg-gradient-to-b from-gray-900 to-black relative overflow-hidden">
+      {/* Background elements */}
+      <div className="absolute top-0 left-1/4 w-64 h-64 bg-purple-500/20 rounded-full blur-3xl animate-pulse" />
+      <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-pink-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+      
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-4">
+            What Users Say
+          </h2>
+          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+            Join thousands of happy users who've transformed their phones with SAAV
+          </p>
+        </div>
+
+        <div className="max-w-4xl mx-auto">
+          {/* Main testimonial */}
+          <div className="relative">
+            <div className="bg-gray-900/50 backdrop-blur-sm rounded-3xl p-8 md:p-12 border border-gray-800 text-center">
+              <Quote className="w-12 h-12 text-purple-400 mx-auto mb-6" />
+              
+              <p className="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed">
+                "{testimonials[currentTestimonial].text}"
+              </p>
+
+              <div className="flex items-center flex-col">
+                <img
+                  src={testimonials[currentTestimonial].avatar}
+                  alt={testimonials[currentTestimonial].name}
+                  className="w-16 h-16 rounded-full mb-4 border-4 border-purple-500/50"
+                />
+                <div className="text-center">
+                  <h4 className="text-lg font-semibold text-white mb-1">
+                    {testimonials[currentTestimonial].name}
+                  </h4>
+                  <p className="text-gray-400 text-sm mb-2">
+                    {testimonials[currentTestimonial].phone}
+                  </p>
+                  <div className="flex justify-center gap-1">
+                    {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
+                      <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Testimonial indicators */}
+          <div className="flex justify-center gap-3 mt-8">
+            {testimonials.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentTestimonial(index)}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  index === currentTestimonial
+                    ? 'bg-purple-500 scale-125'
+                    : 'bg-gray-600 hover:bg-gray-500'
+                }`}
+              />
+            ))}
+          </div>
+
+          {/* Thumbnail testimonials */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-16">
+            {testimonials.map((testimonial, index) => (
+              <div
+                key={index}
+                className={`p-6 rounded-2xl border transition-all duration-300 cursor-pointer ${
+                  index === currentTestimonial
+                    ? 'bg-purple-500/10 border-purple-500/50'
+                    : 'bg-gray-900/30 border-gray-800 hover:border-gray-700'
+                }`}
+                onClick={() => setCurrentTestimonial(index)}
+              >
+                <div className="flex items-center gap-3 mb-3">
+                  <img
+                    src={testimonial.avatar}
+                    alt={testimonial.name}
+                    className="w-10 h-10 rounded-full"
+                  />
+                  <div>
+                    <h5 className="text-white font-medium text-sm">{testimonial.name}</h5>
+                    <div className="flex gap-1">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <p className="text-gray-400 text-sm line-clamp-3">
+                  {testimonial.text}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
-        
-        <h2 className="text-5xl font-display font-bold mb-12 text-left">What others say</h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {testimonials.map((testimonial, index) => <TestimonialCard key={index} content={testimonial.content} author={testimonial.author} role={testimonial.role} gradient={testimonial.gradient} backgroundImage={testimonial.backgroundImage} />)}
-        </div>
       </div>
-    </section>;
+    </section>
+  );
 };
 
 export default Testimonials;
