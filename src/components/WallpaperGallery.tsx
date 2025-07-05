@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from "react";
 import { Download, Heart, Eye, Share2 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -19,7 +20,7 @@ const WallpaperGallery = () => {
 
   const categories = ["All", "Abstract", "Nature", "Minimal", "Gradient", "Dark"];
 
-  // Creative wallpaper data using the provided placeholder images
+  // Creative wallpaper data using only Unsplash images
   const wallpapers: Wallpaper[] = [
     {
       id: "1",
@@ -95,21 +96,39 @@ const WallpaperGallery = () => {
     },
     {
       id: "9",
-      title: "Sunset Glow",
-      category: "Gradient",
-      image: "/lovable-uploads/c3d5522b-6886-4b75-8ffc-d020016bb9c2.png",
+      title: "Mountain Alps",
+      category: "Nature",
+      image: "https://images.unsplash.com/photo-1458668383970-8ddd3927deed",
       downloads: 3456,
       likes: 234,
-      gradient: "from-orange-600 to-pink-600"
+      gradient: "from-blue-600 to-purple-600"
     },
     {
       id: "10",
-      title: "Dark Matter",
-      category: "Dark",
-      image: "/lovable-uploads/dc13e94f-beeb-4671-8a22-0968498cdb4c.png",
+      title: "Sunlit Trees",
+      category: "Nature",
+      image: "https://images.unsplash.com/photo-1518495973542-4542c06a5843",
       downloads: 1876,
       likes: 123,
-      gradient: "from-gray-800 to-black"
+      gradient: "from-green-500 to-yellow-500"
+    },
+    {
+      id: "11",
+      title: "Deer Meadow",
+      category: "Nature",
+      image: "https://images.unsplash.com/photo-1472396961693-142e6e269027",
+      downloads: 2234,
+      likes: 178,
+      gradient: "from-brown-600 to-amber-600"
+    },
+    {
+      id: "12",
+      title: "Foggy Summit",
+      category: "Minimal",
+      image: "https://images.unsplash.com/photo-1469474968028-56623f02e42e",
+      downloads: 1543,
+      likes: 112,
+      gradient: "from-gray-500 to-blue-500"
     }
   ];
 
@@ -183,10 +202,10 @@ const WallpaperGallery = () => {
           ))}
         </div>
 
-        {/* Wallpaper Grid */}
+        {/* Wallpaper Grid - Updated for mobile to show 2 columns */}
         <div 
           ref={galleryRef}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+          className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6"
         >
           {filteredWallpapers.map((wallpaper, index) => (
             <div
@@ -211,37 +230,39 @@ const WallpaperGallery = () => {
 
                 {/* Action buttons */}
                 <div className={cn(
-                  "absolute inset-0 flex items-center justify-center gap-4 opacity-0 transition-all duration-300",
+                  "absolute inset-0 flex items-center justify-center gap-2 sm:gap-4 opacity-0 transition-all duration-300",
                   hoveredWallpaper === wallpaper.id ? "opacity-100" : ""
                 )}>
                   <button
                     onClick={() => handleDownload(wallpaper)}
-                    className="p-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors duration-200"
+                    className="p-2 sm:p-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors duration-200"
                   >
-                    <Download className="w-5 h-5" />
+                    <Download className="w-4 h-4 sm:w-5 sm:h-5" />
                   </button>
-                  <button className="p-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors duration-200">
-                    <Heart className="w-5 h-5" />
+                  <button className="p-2 sm:p-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors duration-200">
+                    <Heart className="w-4 h-4 sm:w-5 sm:h-5" />
                   </button>
-                  <button className="p-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors duration-200">
-                    <Share2 className="w-5 h-5" />
+                  <button className="p-2 sm:p-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors duration-200">
+                    <Share2 className="w-4 h-4 sm:w-5 sm:h-5" />
                   </button>
                 </div>
               </div>
 
               {/* Card footer */}
-              <div className="p-4">
-                <h3 className="text-white font-semibold text-lg mb-2">{wallpaper.title}</h3>
-                <div className="flex items-center justify-between text-sm text-gray-400">
-                  <span className="bg-gray-700 px-2 py-1 rounded-full">{wallpaper.category}</span>
-                  <div className="flex items-center gap-4">
+              <div className="p-3 sm:p-4">
+                <h3 className="text-white font-semibold text-sm sm:text-lg mb-2">{wallpaper.title}</h3>
+                <div className="flex items-center justify-between text-xs sm:text-sm text-gray-400">
+                  <span className="bg-gray-700 px-2 py-1 rounded-full text-xs">{wallpaper.category}</span>
+                  <div className="flex items-center gap-2 sm:gap-4">
                     <span className="flex items-center gap-1">
-                      <Eye className="w-4 h-4" />
-                      {wallpaper.downloads}
+                      <Eye className="w-3 h-3 sm:w-4 sm:h-4" />
+                      <span className="hidden sm:inline">{wallpaper.downloads}</span>
+                      <span className="sm:hidden">{wallpaper.downloads > 1000 ? `${Math.floor(wallpaper.downloads/1000)}k` : wallpaper.downloads}</span>
                     </span>
                     <span className="flex items-center gap-1">
-                      <Heart className="w-4 h-4" />
-                      {wallpaper.likes}
+                      <Heart className="w-3 h-3 sm:w-4 sm:h-4" />
+                      <span className="hidden sm:inline">{wallpaper.likes}</span>
+                      <span className="sm:hidden">{wallpaper.likes}</span>
                     </span>
                   </div>
                 </div>
