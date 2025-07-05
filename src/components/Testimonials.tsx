@@ -75,6 +75,7 @@ const Testimonials = () => {
                   src={testimonials[currentTestimonial].avatar}
                   alt={testimonials[currentTestimonial].name}
                   className="w-16 h-16 rounded-full mb-4 border-4 border-purple-500/50"
+                  loading="lazy"
                 />
                 <div className="text-center">
                   <h4 className="text-lg font-semibold text-white mb-1">
@@ -125,6 +126,7 @@ const Testimonials = () => {
                     src={testimonial.avatar}
                     alt={testimonial.name}
                     className="w-10 h-10 rounded-full"
+                    loading="lazy"
                   />
                   <div>
                     <h5 className="text-white font-medium text-sm">{testimonial.name}</h5>

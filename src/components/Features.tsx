@@ -1,8 +1,10 @@
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Smartphone, Download, Palette, Zap, Heart, Shield } from "lucide-react";
 
 const Features = () => {
+  const featuresRef = useRef<HTMLDivElement>(null);
+
   const features = [
     {
       icon: Smartphone,
@@ -42,6 +44,34 @@ const Features = () => {
     }
   ];
 
+  useEffect(() => {
+    const isMobile = window.innerWidth < 768;
+    
+    if (!isMobile) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const card = entry.target as HTMLElement;
+          if (entry.isIntersecting) {
+            card.classList.add("mobile-gradient-active");
+          } else {
+            card.classList.remove("mobile-gradient-active");
+          }
+        });
+      },
+      { 
+        threshold: 0.3,
+        rootMargin: '-50px 0px -50px 0px'
+      }
+    );
+
+    const cards = document.querySelectorAll(".feature-card");
+    cards.forEach((card) => observer.observe(card));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section className="py-20 bg-black relative overflow-hidden">
       {/* Background elements */}
@@ -58,15 +88,16 @@ const Features = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div ref={featuresRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
             <div
               key={index}
-              className="group relative p-8 bg-gray-900/50 backdrop-blur-sm rounded-2xl border border-gray-800 hover:border-purple-500/50 transition-all duration-500 hover:translate-y-[-10px] opacity-0 animate-fade-in"
+              className={`feature-card group relative p-8 bg-gray-900/50 backdrop-blur-sm rounded-2xl border border-gray-800 hover:border-purple-500/50 transition-all duration-500 hover:translate-y-[-10px] opacity-0 animate-fade-in`}
               style={{ animationDelay: `${index * 0.1}s` }}
+              data-gradient={feature.gradient}
             >
-              {/* Background gradient */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-5 rounded-2xl transition-opacity duration-300`} />
+              {/* Background gradient - hidden by default, shown on mobile scroll or desktop hover */}
+              <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 rounded-2xl transition-opacity duration-300 mobile-gradient group-hover:opacity-5`} />
               
               {/* Icon */}
               <div className={`inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br ${feature.gradient} rounded-2xl mb-6 group-hover:scale-110 transition-transform duration-300`}>
@@ -87,6 +118,20 @@ const Features = () => {
           ))}
         </div>
       </div>
+
+      <style jsx>{`
+        @media (max-width: 767px) {
+          .mobile-gradient-active .mobile-gradient {
+            opacity: 0.05 !important;
+          }
+        }
+        
+        @media (min-width: 768px) {
+          .mobile-gradient {
+            opacity: 0 !important;
+          }
+        }
+      `}</style>
     </section>
   );
 };
