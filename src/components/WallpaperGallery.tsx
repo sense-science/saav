@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from "react";
 import { Download, Heart, Eye, Share2 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -20,10 +19,55 @@ const WallpaperGallery = () => {
 
   const categories = ["All", "Abstract", "Nature", "Minimal", "Gradient", "Dark"];
 
-  // Sample wallpaper data - in a real app, this would come from an API
+  // Creative wallpaper data using the provided placeholder images
   const wallpapers: Wallpaper[] = [
     {
       id: "1",
+      title: "Starry Dreams",
+      category: "Dark",
+      image: "https://images.unsplash.com/photo-1470813740244-df37b8c1edcb",
+      downloads: 2847,
+      likes: 234,
+      gradient: "from-indigo-900 to-purple-900"
+    },
+    {
+      id: "2",
+      title: "Golden Forest",
+      category: "Nature",
+      image: "https://images.unsplash.com/photo-1500673922987-e212871fec22",
+      downloads: 3456,
+      likes: 289,
+      gradient: "from-amber-600 to-orange-600"
+    },
+    {
+      id: "3",
+      title: "Mountain Serenity",
+      category: "Nature",
+      image: "https://images.unsplash.com/photo-1482938289607-e9573fc25ebb",
+      downloads: 1987,
+      likes: 167,
+      gradient: "from-blue-600 to-teal-600"
+    },
+    {
+      id: "4",
+      title: "Pine Wilderness",
+      category: "Nature",
+      image: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9",
+      downloads: 2134,
+      likes: 198,
+      gradient: "from-green-700 to-emerald-700"
+    },
+    {
+      id: "5",
+      title: "Misty Peak",
+      category: "Minimal",
+      image: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05",
+      downloads: 1654,
+      likes: 145,
+      gradient: "from-gray-600 to-slate-700"
+    },
+    {
+      id: "6",
       title: "Purple Dreams",
       category: "Abstract",
       image: "/lovable-uploads/5663820f-6c97-4492-9210-9eaa1a8dc415.png",
@@ -32,7 +76,7 @@ const WallpaperGallery = () => {
       gradient: "from-purple-600 to-pink-600"
     },
     {
-      id: "2",
+      id: "7",
       title: "Cosmic Flow",
       category: "Abstract",
       image: "/lovable-uploads/22d31f51-c174-40a7-bd95-00e4ad00eaf3.png",
@@ -41,16 +85,16 @@ const WallpaperGallery = () => {
       gradient: "from-blue-600 to-purple-600"
     },
     {
-      id: "3",
+      id: "8",
       title: "Ocean Vibes",
-      category: "Nature",
+      category: "Gradient",
       image: "/lovable-uploads/af412c03-21e4-4856-82ff-d1a975dc84a9.png",
       downloads: 987,
       likes: 67,
       gradient: "from-teal-600 to-blue-600"
     },
     {
-      id: "4",
+      id: "9",
       title: "Sunset Glow",
       category: "Gradient",
       image: "/lovable-uploads/c3d5522b-6886-4b75-8ffc-d020016bb9c2.png",
@@ -59,22 +103,13 @@ const WallpaperGallery = () => {
       gradient: "from-orange-600 to-pink-600"
     },
     {
-      id: "5",
+      id: "10",
       title: "Dark Matter",
       category: "Dark",
       image: "/lovable-uploads/dc13e94f-beeb-4671-8a22-0968498cdb4c.png",
       downloads: 1876,
       likes: 123,
       gradient: "from-gray-800 to-black"
-    },
-    {
-      id: "6",
-      title: "Minimal Zen",
-      category: "Minimal",
-      image: "/lovable-uploads/5663820f-6c97-4492-9210-9eaa1a8dc415.png",
-      downloads: 654,
-      likes: 45,
-      gradient: "from-gray-600 to-gray-800"
     }
   ];
 
