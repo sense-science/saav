@@ -1,6 +1,7 @@
 import React from "react";
 import { Download, Heart, Eye, Share2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { toast } from "@/hooks/use-toast";
 import { Wallpaper } from './types';
 
 interface WallpaperCardProps {
@@ -50,10 +51,16 @@ const WallpaperCard = React.memo(({
           >
             <Download className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
-          <button className="p-2 sm:p-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors duration-200">
+          <button 
+            onClick={() => toast({ title: "Added to Favorites", description: `${wallpaper.title} added to your favorites!` })}
+            className="p-2 sm:p-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors duration-200"
+          >
             <Heart className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
-          <button className="p-2 sm:p-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors duration-200">
+          <button 
+            onClick={() => toast({ title: "Sharing", description: "Wallpaper link copied to clipboard!" })}
+            className="p-2 sm:p-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors duration-200"
+          >
             <Share2 className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
         </div>

@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Download, Star, Users, Image as ImageIcon } from "lucide-react";
+import { toast } from "@/hooks/use-toast";
 
 const WallpaperHero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -100,7 +101,10 @@ const WallpaperHero = () => {
               <div className="absolute inset-0 bg-gradient-to-r from-purple-700 to-pink-700 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </a>
             
-            <button className="px-8 py-4 border border-purple-400/50 rounded-full text-purple-300 font-semibold hover:bg-purple-400/10 transition-all duration-300 hover:scale-105">
+            <button 
+              onClick={() => toast({ title: "Learn More", description: "Discover the story behind SAAV wallpapers and our creative process" })}
+              className="px-8 py-4 border border-purple-400/50 rounded-full text-purple-300 font-semibold hover:bg-purple-400/10 transition-all duration-300 hover:scale-105"
+            >
               Learn More
             </button>
           </div>

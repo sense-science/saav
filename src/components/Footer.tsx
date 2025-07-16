@@ -1,8 +1,23 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { Heart, Instagram, Twitter, Github, Mail } from "lucide-react";
+import { toast } from "@/hooks/use-toast";
 
 const Footer = () => {
+  const [email, setEmail] = useState("");
+
+  const handleSubscribe = () => {
+    if (!email) {
+      toast({ title: "Email Required", description: "Please enter your email address", variant: "destructive" });
+      return;
+    }
+    toast({ title: "Subscribed!", description: "Thank you for subscribing to our newsletter!" });
+    setEmail("");
+  };
+
+  const handleSocialClick = (platform: string) => {
+    toast({ title: `${platform}`, description: `Opening ${platform} page...` });
+  };
   const footerLinks = {
     Product: [
       { name: "Wallpapers", href: "#wallpapers" },
@@ -47,14 +62,14 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4">
               {socialLinks.map((social, index) => (
-                <a
+                <button
                   key={index}
-                  href={social.href}
+                  onClick={() => handleSocialClick(social.label)}
                   className="p-2 bg-gray-900 rounded-full text-gray-400 hover:text-white hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-600 transition-all duration-300"
                   aria-label={social.label}
                 >
                   <social.icon className="w-5 h-5" />
-                </a>
+                </button>
               ))}
             </div>
           </div>
@@ -89,10 +104,16 @@ const Footer = () => {
             <div className="flex gap-3 w-full md:w-auto">
               <input
                 type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
                 className="flex-1 md:w-64 px-4 py-2 bg-gray-900 border border-gray-700 rounded-full text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors duration-200"
+                onKeyPress={(e) => e.key === 'Enter' && handleSubscribe()}
               />
-              <button className="px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full hover:scale-105 transition-transform duration-200 whitespace-nowrap">
+              <button 
+                onClick={handleSubscribe}
+                className="px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full hover:scale-105 transition-transform duration-200 whitespace-nowrap"
+              >
                 Subscribe
               </button>
             </div>

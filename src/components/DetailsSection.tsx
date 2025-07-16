@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import { toast } from "sonner";
+import { toast } from "@/hooks/use-toast";
 const DetailsSection = () => {
   const [formData, setFormData] = useState({
     fullName: "",
@@ -22,12 +22,12 @@ const DetailsSection = () => {
 
     // Simple validation
     if (!formData.fullName || !formData.email) {
-      toast.error("Please fill in all required fields");
+      toast({ title: "Error", description: "Please fill in all required fields", variant: "destructive" });
       return;
     }
 
     // Demo form submission
-    toast.success("Request submitted successfully!");
+    toast({ title: "Success!", description: "Request submitted successfully!" });
 
     // Reset form
     setFormData({
@@ -190,6 +190,10 @@ const DetailsSection = () => {
                 <div>
                   <button 
                     type="submit" 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      toast({ title: "Access Request Sent!", description: "We'll review your application and get back to you soon." });
+                    }}
                     className="w-full px-6 py-3 bg-pulse-500 hover:bg-pulse-600 text-white font-medium rounded-full transition-colors duration-300"
                   >
                     Request access
