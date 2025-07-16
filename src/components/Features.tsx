@@ -119,7 +119,7 @@ const Features = () => {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         @media (max-width: 767px) {
           .mobile-gradient-active .mobile-gradient {
             opacity: 0.05 !important;
