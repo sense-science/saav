@@ -3,6 +3,8 @@ import { Download, Heart, Eye, Share2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "@/hooks/use-toast";
 import { Wallpaper } from './types';
+import { useFavorites } from '@/hooks/useFavorites';
+import { useDownloads } from '@/hooks/useDownloads';
 
 interface WallpaperCardProps {
   wallpaper: Wallpaper;
@@ -19,6 +21,46 @@ const WallpaperCard = React.memo(({
   onHover, 
   onDownload 
 }: WallpaperCardProps) => {
+  const { toggleFavorite, isFavorite } = useFavorites();
+  const { addToDownloads } = useDownloads();
+
+  const handleDownload = async () => {
+    addToDownloads(wallpaper);
+    onDownload(wallpaper);
+  };
+
+  const handleToggleFavorite = () => {
+    const isNowFavorite = toggleFavorite(wallpaper);
+    toast({ 
+      title: isNowFavorite ? "Added to favorites" : "Removed from favorites", 
+      description: `${wallpaper.title} ${isNowFavorite ? 'added to' : 'removed from'} favorites!` 
+    });
+  };
+
+  const handleShare = async () => {
+    const shareData = {
+      title: wallpaper.title,
+      text: `Check out this amazing wallpaper: ${wallpaper.title}`,
+      url: wallpaper.image,
+    };
+
+    if (navigator.share && navigator.canShare(shareData)) {
+      try {
+        await navigator.share(shareData);
+        toast({ title: "Shared!", description: "Wallpaper shared successfully." });
+      } catch (error) {
+        // User cancelled sharing
+      }
+    } else {
+      // Fallback to copying URL
+      try {
+        await navigator.clipboard.writeText(wallpaper.image);
+        toast({ title: "Link copied!", description: "Wallpaper link copied to clipboard!" });
+      } catch (error) {
+        toast({ title: "Share failed", description: "Unable to share this wallpaper." });
+      }
+    }
+  };
   return (
     <div
       className="wallpaper-card opacity-0 group relative overflow-hidden rounded-2xl bg-gray-800 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105"
@@ -46,19 +88,24 @@ const WallpaperCard = React.memo(({
           isHovered ? "opacity-100" : ""
         )}>
           <button
-            onClick={() => onDownload(wallpaper)}
+            onClick={handleDownload}
             className="p-2 sm:p-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors duration-200"
           >
             <Download className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
           <button 
-            onClick={() => toast({ title: "Added to Favorites", description: `${wallpaper.title} added to your favorites!` })}
-            className="p-2 sm:p-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors duration-200"
+            onClick={handleToggleFavorite}
+            className={cn(
+              "p-2 sm:p-3 backdrop-blur-sm rounded-full text-white transition-colors duration-200",
+              isFavorite(wallpaper.id) 
+                ? "bg-red-500/80 hover:bg-red-500" 
+                : "bg-white/20 hover:bg-white/30"
+            )}
           >
-            <Heart className="w-4 h-4 sm:w-5 sm:h-5" />
+            <Heart className={cn("w-4 h-4 sm:w-5 sm:h-5", isFavorite(wallpaper.id) && "fill-current")} />
           </button>
           <button 
-            onClick={() => toast({ title: "Sharing", description: "Wallpaper link copied to clipboard!" })}
+            onClick={handleShare}
             className="p-2 sm:p-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors duration-200"
           >
             <Share2 className="w-4 h-4 sm:w-5 sm:h-5" />

@@ -3,10 +3,12 @@ import React, { useState, useEffect } from "react";
 import { Menu, X, Download, Heart, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "@/hooks/use-toast";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -60,13 +62,13 @@ const Navbar = () => {
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-4">
             <button 
-              onClick={() => toast({ title: "Favorites", description: "View your favorite wallpapers" })}
+              onClick={() => navigate('/favorites')}
               className="text-gray-300 hover:text-white p-2 rounded-full hover:bg-gray-800 transition-colors duration-200"
             >
               <Heart className="w-5 h-5" />
             </button>
             <button 
-              onClick={() => toast({ title: "Downloads", description: "View your downloaded wallpapers" })}
+              onClick={() => navigate('/downloads')}
               className="text-gray-300 hover:text-white p-2 rounded-full hover:bg-gray-800 transition-colors duration-200"
             >
               <Download className="w-5 h-5" />
@@ -111,13 +113,13 @@ const Navbar = () => {
           <div className="pt-4 border-t border-gray-800 mt-4">
             <div className="flex items-center justify-center space-x-4">
               <button 
-                onClick={() => toast({ title: "Favorites", description: "View your favorite wallpapers" })}
+                onClick={() => navigate('/favorites')}
                 className="text-gray-300 hover:text-white p-2 rounded-full hover:bg-gray-800 transition-colors duration-200"
               >
                 <Heart className="w-5 h-5" />
               </button>
               <button 
-                onClick={() => toast({ title: "Downloads", description: "View your downloaded wallpapers" })}
+                onClick={() => navigate('/downloads')}
                 className="text-gray-300 hover:text-white p-2 rounded-full hover:bg-gray-800 transition-colors duration-200"
               >
                 <Download className="w-5 h-5" />
