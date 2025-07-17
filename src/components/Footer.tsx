@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Heart, Instagram, Twitter, Github, Mail } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
@@ -20,22 +21,22 @@ const Footer = () => {
   };
   const footerLinks = {
     Product: [
-      { name: "Wallpapers", href: "#wallpapers" },
-      { name: "Categories", href: "#categories" },
-      { name: "New Releases", href: "#new" },
-      { name: "Popular", href: "#popular" }
+      { name: "Wallpapers", href: "/#wallpapers" },
+      { name: "Categories", href: "/categories" },
+      { name: "New Releases", href: "/#new" },
+      { name: "Popular", href: "/#popular" }
     ],
     Company: [
-      { name: "About Us", href: "#about" },
-      { name: "Contact", href: "#contact" },
-      { name: "Blog", href: "#blog" },
-      { name: "Careers", href: "#careers" }
+      { name: "About Us", href: "/about" },
+      { name: "Contact", href: "/contact" },
+      { name: "Blog", href: "/blog" },
+      { name: "Careers", href: "/careers" }
     ],
     Support: [
-      { name: "Help Center", href: "#help" },
-      { name: "Privacy Policy", href: "#privacy" },
-      { name: "Terms of Service", href: "#terms" },
-      { name: "Cookie Policy", href: "#cookies" }
+      { name: "Help Center", href: "/contact" },
+      { name: "Privacy Policy", href: "/contact" },
+      { name: "Terms of Service", href: "/contact" },
+      { name: "Cookie Policy", href: "/contact" }
     ]
   };
 
@@ -81,12 +82,12 @@ const Footer = () => {
               <ul className="space-y-2">
                 {links.map((link, index) => (
                   <li key={index}>
-                    <a
-                      href={link.href}
+                    <Link
+                      to={link.href}
                       className="text-gray-400 hover:text-white transition-colors duration-200"
                     >
                       {link.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -128,15 +129,15 @@ const Footer = () => {
             for mobile aesthetics.
           </p>
           <div className="flex items-center gap-6 text-sm text-gray-400">
-            <a href="#privacy" className="hover:text-white transition-colors duration-200">
+            <Link to="/contact" className="hover:text-white transition-colors duration-200">
               Privacy
-            </a>
-            <a href="#terms" className="hover:text-white transition-colors duration-200">
+            </Link>
+            <Link to="/contact" className="hover:text-white transition-colors duration-200">
               Terms
-            </a>
-            <a href="#cookies" className="hover:text-white transition-colors duration-200">
+            </Link>
+            <Link to="/contact" className="hover:text-white transition-colors duration-200">
               Cookies
-            </a>
+            </Link>
           </div>
         </div>
       </div>
